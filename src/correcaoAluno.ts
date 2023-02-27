@@ -34,15 +34,14 @@ class correcaoAluno{
 
 
 
-let aluno1 = new correcaoAluno()
-aluno1.nome = 'Jose'
-aluno1.numeroAluno = 123
-aluno1.idade = 30
-aluno1.p1 = 6
-aluno1.p2 = 8
+let caluno1 = new correcaoAluno()
+caluno1.nome = 'Jose'
+caluno1.numeroAluno = 123
+caluno1.idade = 30
+caluno1.p1 = 6
+caluno1.p2 = 8
 
-let aluno2 = new correcaoAluno(12, 'Artur', 52, 6, 10)
+let caluno2 = new correcaoAluno(12, 'Artur', 52, 6, 10)
 
-aluno1.dadosAluno()
-console.log(aluno1.dadosAluno())
-console.log(aluno2.dadosAluno())
+console.log(caluno1.dadosAluno())
+console.log(caluno2.dadosAluno())
