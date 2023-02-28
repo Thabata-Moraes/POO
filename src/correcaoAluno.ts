@@ -34,12 +34,7 @@ class correcaoAluno{
 
 
 
-let caluno1 = new correcaoAluno()
-caluno1.nome = 'Jose'
-caluno1.numeroAluno = 123
-caluno1.idade = 30
-caluno1.p1 = 6
-caluno1.p2 = 8
+let caluno1 = new correcaoAluno(123, 'José', 30, 6, 8)
 
 let caluno2 = new correcaoAluno(12, 'Artur', 52, 6, 10)
 
