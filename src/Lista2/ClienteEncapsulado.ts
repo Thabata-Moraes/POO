@@ -32,7 +32,7 @@ class ClienteEncapsulado{
             this.nome = nome
         } else {
             this.nome = ''
-            console.log('O nome digitado estrapola os carecteres')
+            console.log('O nome digitado estrapola os caracteres')
         }
     }
     setSaldo(saldo:number): void{
