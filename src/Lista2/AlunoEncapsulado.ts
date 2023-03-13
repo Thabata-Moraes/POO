@@ -13,11 +13,12 @@ class AlunoEncapsulado{
         this.setP2(p2)
     }
     setNumeroAluno(numeroAluno:number):void{
+        //aux é uma variável local ao método que converte o número do aluno para string 
         let aux = numeroAluno.toString()
         if (aux.length == 6){
             this.numeroAluno = numeroAluno
         } else {
-            this.numeroAluno = 123456
+            this.numeroAluno = 0
             console.log('Número não se adequa aos padrões, reveja')
         }
     }
@@ -25,18 +26,18 @@ class AlunoEncapsulado{
         if (nome.length <= 30){
             this.nome = nome
         } else {
-            this.nome = ''
+            this.nome = 'Não definido'
             console.log('O nome digitado estrapola os caracteres')
         }
     }
     setIdade(idade:number):void{
-        idade>0? this.idade = idade : (idade = 0, console.log('Idade improvável, reveja'))
+        (idade>0)? (this.idade = idade) : (this.idade = 0, console.log('Idade improvável, reveja'))
     }
     setP1(p1:number):void{
-        p1>0? this.p1 = p1 : (p1 = 0, console.log('Nota improvável, reveja'))
+        (p1>=0)? (this.p1 = p1) : (this.p1 = 0, console.log('Nota improvável, reveja'))
     }
     setP2(p2:number):void{
-        p2>0? this.p2 = p2 : (p2 = 0, console.log('Nota improvável, reveja'))
+        (p2>=0)? (this.p2 = p2) : (this.p2 = 0, console.log('Nota improvável, reveja'))
     }
     getNumeroAluno():number{
         return this.numeroAluno
@@ -62,9 +63,9 @@ class AlunoEncapsulado{
     dadosAluno():string{
         return (
             (`
-            Número Aluno: ${this.getNumeroAluno()}
-            Nome: ${this.getNome()}
-            Idade: ${this.getIdade()}
+            Número Aluno: ${this.numeroAluno}
+            Nome: ${this.nome}
+            Idade: ${this.idade}
             Nota final: ${this.notaFinal()}
             Situação: ${this.passou()}
             `)
@@ -77,8 +78,7 @@ class AlunoEncapsulado{
 
 let ealuno1 = new AlunoEncapsulado(123658, 'José', 30, 6, 8)
 
-let ealuno2 = new AlunoEncapsulado(128952, 'Artur', 52, 6, 10)
+let ealuno2 = new AlunoEncapsulado(8, 'Artur', 52, 6, 10)
 
 console.log(ealuno1.dadosAluno())
 console.log(ealuno2.dadosAluno())
-console.log(ealuno1.nome)
