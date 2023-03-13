@@ -1,4 +1,4 @@
-class Product{
+class Produto{
     id: number;
     description: string;
     amount: number; 
@@ -31,23 +31,23 @@ class Product{
     }
 }
 
-let product1 = new Product()
-product1.id = 123
-product1.description = "blue bottle"
-product1.amount = 4
-product1.price = 25
+let produto1 = new Produto()
+produto1.id = 123
+produto1.description = "blue bottle"
+produto1.amount = 4
+produto1.price = 25
 
-let product2 = new Product()
-product2.id = 321
-product2.description = "green bottle"
-product2.amount = 6
-product2.price = 25
+let produto2 = new Produto()
+produto2.id = 321
+produto2.description = "green bottle"
+produto2.amount = 6
+produto2.price = 25
 
-product1.display()
-product2.display()
-product1.buy(2)
-product2.sell(4)
-product1.increase(5)
-product2.decrease(10)
-product1.display()
-product2.display()
+produto1.display()
+produto2.display()
+produto1.buy(2)
+produto2.sell(4)
+produto1.increase(5)
+produto2.decrease(10)
+produto1.display()
+produto2.display()
