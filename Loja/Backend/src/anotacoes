@@ -1,0 +1,10 @@
+ORM 
+Object Relational Mapping 
+mapeamento objeto relacional
+
+os bancos de dados são relacionais 
+TS é orientado a objeto 
+
+mapear objeto em tabelas relacionais 
+
+não precisa programar em SQL (para programas simples, usar prisma)

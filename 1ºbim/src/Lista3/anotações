@@ -1,0 +1,36 @@
+Associação entre classes:
+
+Todo/Parte 
+* Em uma relação de associação, uma classe é o todo e uma é a parte 
+
+Tipos de associação: 
+    Agregação:
+    - No diagrama de classe: diamante não preenchido ao lado da classe todo 
+    - A parte não depende do todo, são independentes;
+    - Se o todo for eliminado, a parte não será;
+    - A parte agrega o todo;
+    Ex: Product é parte, CartItem é todo. Se eu excluo um produto do meu carrinho, ele não deixa de existir no restante da minha aplicação. 
+
+
+    Composição:
+    - No diagrama de classe, diamante preenchido;
+    - A parte depende do todo, são dependentes;
+    - Se o todo for eliminado a parte tbm será;
+    - A parte está contida no todo;
+    Ex: CarItem é parte e ShoppingCart é todo. Se eu excluo o CarItem ele deixa de existir no ShoppingCart. 
+
+DIAMANANTE SEMPRE GRUDADO NO TODO 
+
+Observações: 
+* Agregação tem cardinalidade N do lado da classe Todo;
+* Composição tem cardinalidade 1 do lado da classe Todo; 
+* Uma classe pode ser Todo em uma associação e Parte em outra. 
+
+
+Classe filha -> variáveis sempre private e não protect!!! (quando não tem filhos)
+protect somente em superclasses, ou em classe que tem filhas 
+
+2º Bim a partir da lista 5 
+Interface e seus usos - lista 5: exemploTAD exemploMetodos
+
+Uma classe precisa implementar todos os métodos da sua interface 
