@@ -11,7 +11,11 @@ datasource db {
 }
 
 model Product {
-  id              string  @id @default(uuid())
-  name            string
-  description     
+  id              String  @id @default(uuid())
+  name            String
+  description     String
+  quantity        Int
+  created_at      DateTime 
+  @@map("products")
+
 }
