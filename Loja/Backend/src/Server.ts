@@ -3,6 +3,7 @@ import Fastify from "fastify";
 import {PrismaClient} from '@prisma/client'
 import {z} from 'zod';
 import dayjs from "dayjs";
+import { allowedNodeEnvironmentFlags } from "process";
 
 // instanciar o obj da classe fastify 
 const app = Fastify()
@@ -76,6 +77,53 @@ app.delete('/product/:id', async (request) => {
         }
     })
     
+})
+
+// atualiza a quantidade -> compra
+app.patch('/product/purchase',async (request) => {
+    const purchaseBody = z.object({
+        id: z.string().uuid(),
+        x: z.number()
+    })
+    const {id, x} = purchaseBody.parse(request.body)
+
+    await prisma.product.update({
+        where: {
+            id: id,
+        },
+        data: {
+            quantity: {
+                increment: x
+            }
+        }
+    })
+})
+
+// atualiza a quantidade -> venda
+app.patch('/product/sell',async (request) => {
+    const purchaseBody = z.object({
+        id: z.string().uuid(),
+        x: z.number()
+    })
+    const {id, x} = purchaseBody.parse(request.body)
+    const response = await prisma.product.updateMany({
+        where: {
+            id: id,
+            quantity: {
+                gt: x
+            }
+        },
+        data: {
+            quantity: {
+                decrement: x
+            }
+        }
+    })
+    if(response.count > 0){
+        return 'Venda realizada com sucesso'
+    } else {
+        return 'Venda não realizada'
+    }
 })
 
 // vamos subir o servidor, vamos executá-lo, ele ficará ouvindo e aguardando as requisições 
