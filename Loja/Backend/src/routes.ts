@@ -130,5 +130,28 @@ export async function AppRoutes(app: FastifyInstance){
             return 'Venda não realizada'
         }
     })
+
+    app.put('/product',async (request) => {
+        const putBody = z.object({
+            id: z.string().uuid(),
+            name: z.string(),
+            description: z.string(),
+            quantity: z.number()
+        })
+        // recupera os dados do front
+        const {id, name, description, quantity} = putBody.parse(request.body) 
+
+        const productUpdated = await prisma.product.update({
+            where: {
+                id: id
+            },
+            data: {
+                name,
+                description,
+                quantity 
+            }
+        })
+        return productUpdated
+    })
 }
 
