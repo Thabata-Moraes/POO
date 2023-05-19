@@ -75,3 +75,33 @@ function edit(id, name, description, quantity){
     document.getElementById('description').value = description
     document.getElementById('quantity').value = quantity
 }
+
+async function purchase(){
+    let id = document.getElementById("id").value
+    let quantity = Number(document.getElementById("quantity").value)
+    let product = {id, quantity}
+    await fetch('http://localhost:3333/product/purchase', {
+        method: 'PATCH',
+        body: JSON.stringify(product), //converte obj JSON em string
+        headers: {
+            "Content-Type" : "application/json; charset=UTF-8"
+        }
+    })
+    .then(response => alert('Operação realizada com sucesso'))
+    .catch(error => alert('Problema na operação'))
+}
+
+async function sell(){
+    let id = document.getElementById("id").value
+    let quantity = Number(document.getElementById("quantity").value)
+    let product = {id, quantity}
+    await fetch('http://localhost:3333/product/sell', {
+        method: 'PATCH',
+        body: JSON.stringify(product), //converte obj JSON em string
+        headers: {
+            "Content-Type" : "application/json; charset=UTF-8"
+        }
+    })
+    .then(response => alert('Operação realizada com sucesso'))
+    .catch(error => alert('Problema na operação'))
+}
