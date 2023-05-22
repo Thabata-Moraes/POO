@@ -6,7 +6,7 @@ async function query(){
     })
     let content =''
     products.forEach(product => {
-        content += `<tr> <td> ${product.name} </td> <td> ${product.description} </td> <td> ${product.quantity} </td> <td> ${product.created_at} </td> <td> <i onclick="exclude('${product.id}')" class="bi bi-trash"/> </td> <td> <i onclick="edit('${product.id}','${product.name}', '${product.description}', ${product.quantity})" class="bi bi-pencil"/> </td> </tr>`
+        content += `<tr> <td> ${product.name} </td> <td> ${product.description} </td> <td> ${product.quantity} </td> <td> ${product.created_at} </td> <td> <i onclick="exclude('${product.id}')" class="bi bi-trash"/> </td> <td> <i onclick="edit('${product.id}','${product.name}', '${product.description}', ${product.quantity})" class="bi bi-pencil"/> </tr>`
     });
     document.getElementById("table").innerHTML = content
 
@@ -74,34 +74,4 @@ function edit(id, name, description, quantity){
     document.getElementById('name').value = name
     document.getElementById('description').value = description
     document.getElementById('quantity').value = quantity
-}
-
-async function purchase(){
-    let id = document.getElementById("id").value
-    let quantity = Number(document.getElementById("quantity").value)
-    let product = {id, quantity}
-    await fetch('http://localhost:3333/product/purchase', {
-        method: 'PATCH',
-        body: JSON.stringify(product), //converte obj JSON em string
-        headers: {
-            "Content-Type" : "application/json; charset=UTF-8"
-        }
-    })
-    .then(response => alert('Operação realizada com sucesso'))
-    .catch(error => alert('Problema na operação'))
-}
-
-async function sell(){
-    let id = document.getElementById("id").value
-    let quantity = Number(document.getElementById("quantity").value)
-    let product = {id, quantity}
-    await fetch('http://localhost:3333/product/sell', {
-        method: 'PATCH',
-        body: JSON.stringify(product), //converte obj JSON em string
-        headers: {
-            "Content-Type" : "application/json; charset=UTF-8"
-        }
-    })
-    .then(response => alert('Operação realizada com sucesso'))
-    .catch(error => alert('Problema na operação'))
 }
