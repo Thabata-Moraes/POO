@@ -1,7 +1,6 @@
 async function montarSelect(){
    const produtos =  await fetch('http://localhost:3333/products')
     .then(resposta => {
-        console.log(resposta)
         return resposta.json()
     })
     .catch(error => {
@@ -15,6 +14,18 @@ async function montarSelect(){
     document.getElementById("produto").innerHTML = conteudoSelect
 }
 
+async function consultaQted(){
+    const idProduto = document.getElementById("produto").value
+    const product = await fetch(`http://localhost:3333/productById/${idProduto}`)
+    .then(resp => {
+        return resp.json()
+    })
+    .catch(error => {
+        alert("Problema ao recuperar quantidade, tente novamente")
+    })
+    document.getElementById("disponivel").innerHTML = product.quantity
+}
+
 async function vender(){
     // recupera os dados do formulário
     const id = document.getElementById("produto").value
@@ -22,7 +33,7 @@ async function vender(){
     const objeto = {id, x}
    
     // consumir API
-    await fetch("http://localhost:3333/product/sell", {
+    const product = await fetch("http://localhost:3333/product/sell", {
         method: 'PATCH', 
         body: JSON.stringify(objeto),
         headers: {
@@ -30,9 +41,13 @@ async function vender(){
         }
     })
     .then(resp => {
-        alert("Compra realizada com sucesso")
+        return resp.json()
     })
     .catch(error => {
         alert("Problema na compra")
     })
+    alert(product.status)
+    document.getElementById("produto").value = ''
+    document.getElementById("disponivel").value = ''
+    document.getElementById("quantity").value = ''
 }

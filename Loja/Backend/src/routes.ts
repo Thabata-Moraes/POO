@@ -31,6 +31,20 @@ export async function AppRoutes(app: FastifyInstance){
         })
         return products
     })
+
+    app.get('/productById/:id',async (request) => {
+        const idParam = z.object({
+            id: z.string().uuid()
+        })
+        const {id} = idParam.parse(request.params)
+        const product = await prisma.product.findUnique({
+            //recupera o name informado pelo front
+            where: {
+                id
+            }
+        })
+        return product
+    })
     
     // define uma rota que cria um produto no banco de dados, usadndo o verbo post
     app.post('/product', async (request) => {
@@ -127,7 +141,9 @@ export async function AppRoutes(app: FastifyInstance){
                 response: response
             }
         } else {
-            return 'Venda não realizada'
+            return {
+                status: 'Venda não realizada'
+            }
         }
     })
 
