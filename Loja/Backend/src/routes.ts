@@ -4,14 +4,47 @@ import { prisma } from './lib/prisma';
 import { FastifyInstance } from 'fastify';
 
 export async function AppRoutes(app: FastifyInstance){
-    // definir uma rota chamada hello- verbo é get, uma consulta
-    app.get('/hello', () => {
-        return 'Hello World ihuul'
+    // criar usuário
+    app.post('/user',async (request) => {
+     const userPost = z.object({
+        username: z.string(),
+        password: z.string(),
+        email: z.string().email()
+     })
+     const {username, password, email} = userPost.parse(request.body)
+     const newUser = await prisma.user.create({
+        data : {
+            username, 
+            password,
+            email
+        }
+     })    
+     return newUser
     })
-    
+
+    //rota que consulta todos os usuários
+     app.get('/users',async () => {
+        const users = await prisma.user.findMany()
+        return users
+    })
+
     //rota que consulta todos os produtos
     app.get('/products',async () => {
         const products = await prisma.product.findMany()
+        return products
+    })
+
+    //rota que consulta produtos por usuário 
+    app.get('/products/:userId',async (request) => {
+        const userIdParams = z.object({
+            userId: z.string().uuid()
+        })
+        const {userId} = userIdParams.parse(request.params)
+        const products = await prisma.product.findMany({
+            where: {
+                userId : userId
+            }
+        })
         return products
     })
     
@@ -52,9 +85,10 @@ export async function AppRoutes(app: FastifyInstance){
         const createProductBody = z.object({
             name: z.string(),
             description: z.string(),
-            quantity: z.number()
+            quantity: z.number(),
+            userId: z.string().uuid()
         })
-        const {name, description, quantity} = createProductBody.parse(request.body)
+        const {name, description, quantity, userId} = createProductBody.parse(request.body)
     
         //recupera a data atual:
         const today = dayjs().startOf('day').toDate() //startOf só cria o dia, sem hora, min e segundo.
@@ -66,6 +100,7 @@ export async function AppRoutes(app: FastifyInstance){
                 description,
                 quantity,
                 created_at: today,
+                userId
             }
         })   
         return newProduct
