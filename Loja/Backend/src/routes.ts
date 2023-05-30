@@ -22,6 +22,22 @@ export async function AppRoutes(app: FastifyInstance){
      return newUser
     })
 
+    //verifica usuário e senha
+    app.post('/user/verifica',async (request) => {
+        const verificaBody = z.object({
+            username: z.string(),
+            password: z.string()
+        })
+        const {username, password} = verificaBody.parse(request.body)
+        const result = await prisma.user.findFirst({
+           where: {
+                username,
+                password
+           }
+        })
+        return result    
+    })
+
     //rota que consulta todos os usuários
      app.get('/users',async () => {
         const users = await prisma.user.findMany()
