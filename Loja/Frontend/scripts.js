@@ -1,6 +1,8 @@
 
 async function query(){
-    let products = await fetch('http://localhost:3333/products')
+    let id = document.cookie.split('=')
+    // o split divide o conteudo em um vetor deixando id na posição 0 e número na posicao 1
+    let products = await fetch(`http://localhost:3333/products/${id[1]}`)
     .then(response => {
         return response.json()
     })
@@ -17,7 +19,8 @@ async function confirm(){
     let name = document.getElementById("name").value
     let description = document.getElementById("description").value
     let quantity = Number(document.getElementById("quantity").value)
-
+    let aux = document.cookie.split('=')
+    let userId = aux[1]
     if (!name || !description || !quantity ){
         alert("Informe todos os campos ")
         return
@@ -27,7 +30,7 @@ async function confirm(){
     let product
     if (!id){
         method = 'POST'
-        product = {name, description, quantity}
+        product = {name, description, quantity, userId}
 
     } else {
         method = 'PUT'
